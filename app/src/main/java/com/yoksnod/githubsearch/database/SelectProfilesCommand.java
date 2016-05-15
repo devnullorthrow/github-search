@@ -46,7 +46,6 @@ public class SelectProfilesCommand extends AbstractRequest<String, RequestResult
                     null,
                     null,
                     null);
-            /*TODO MY*/
             cursor.moveToFirst();
             totalCount = cursor.getCount();
             while (cursor.moveToNext()){
@@ -62,6 +61,7 @@ public class SelectProfilesCommand extends AbstractRequest<String, RequestResult
             if (cursor != null){
                 cursor.close();
             }
+            dbHelper.close();
         }
 
         return new RequestResult<>(new ProfilesAndTotalCount(profiles, totalCount));

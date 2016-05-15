@@ -12,8 +12,10 @@ import java.util.concurrent.Future;
  */
 public class RequestScheduler {
 
-    private final ExecutorService mDbExecutor = Executors.newFixedThreadPool(1);
-    private final ExecutorService mNetworkExecutor = Executors.newFixedThreadPool(4);
+    public static final int DB_POOL_SIZE = 1;
+    public static final int NETWORK_POOL_SIZE = 4;
+    private final ExecutorService mDbExecutor = Executors.newFixedThreadPool(DB_POOL_SIZE);
+    private final ExecutorService mNetworkExecutor = Executors.newFixedThreadPool(NETWORK_POOL_SIZE);
 
     public Executor getDbExecutor() {
         return mDbExecutor;

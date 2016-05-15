@@ -17,9 +17,16 @@ public abstract class AbstractGetProfilesLoader<T> extends AsyncTaskLoader<T> {
 
     @Override
     public void deliverResult(T data) {
-        super.deliverResult(data);
-        if (mProfiles == null){
-            mProfiles = data;
+        if (isReset()) {
+            if (data != null) {
+                onComplete(data);
+            }
+        }
+
+        mProfiles = data;
+
+        if (isStarted()) {
+            super.deliverResult(data);
         }
     }
 
@@ -36,6 +43,28 @@ public abstract class AbstractGetProfilesLoader<T> extends AsyncTaskLoader<T> {
             forceLoad();
         }else {
             deliverResult(mProfiles);
+        }
+    }
+
+    @Override
+    public void onCanceled(T result) {
+        super.onCanceled(result);
+        onComplete(result);
+    }
+
+    protected void onComplete(T result) {
+    }
+
+
+    @Override
+    protected void onReset() {
+        super.onReset();
+
+        onStopLoading();
+
+        if (mProfiles != null) {
+            onComplete(mProfiles);
+            mProfiles = null;
         }
     }
 

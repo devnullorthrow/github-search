@@ -29,14 +29,16 @@ public class MergeProfilesCommand extends AbstractRequest<List<Profile>, Request
     public RequestResult<List<Profile>> execute() {
         SqliteDbHelper dbHelper = ProfileContentProvider.getDbHelper(mContext);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        /*TODO opt*/
         db.beginTransaction();
-
-        cleanupExpired(db);
-        List<Profile> forMergeProfiles = insertNewData(db);
-
-        db.setTransactionSuccessful();
-        db.endTransaction();
+        final List<Profile> forMergeProfiles;
+        try {
+            cleanupExpired(db);
+            forMergeProfiles = insertNewData(db);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+            dbHelper.close();
+        }
 
         return new RequestResult<>(forMergeProfiles);
     }

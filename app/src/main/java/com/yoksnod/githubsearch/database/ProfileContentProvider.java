@@ -61,7 +61,11 @@ public class ProfileContentProvider extends ContentProvider {
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
         long id = getProfileId(uri);
-        int count = mHelper.getWritableDatabase().delete(Profile.TABLE_NAME, String.format("%s=?", Profile._ID), new String[]{String.valueOf(id)});
+        int count = mHelper
+                .getWritableDatabase()
+                .delete(Profile.TABLE_NAME,
+                        String.format("%s=?", Profile._ID),
+                        new String[]{String.valueOf(id)});
         return count;
     }
 
