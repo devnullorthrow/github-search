@@ -119,7 +119,7 @@ public class GithubProfilesFragment extends Fragment implements LoaderManager.Lo
     public void onLoadFinished(Loader<RequestResult<ProfilesAndTotalCount>> loader,
                                RequestResult<ProfilesAndTotalCount> result) {
 
-        if (result.getException() == null){
+        if (result.isOk()){
             List<Profile> profiles = result.getData().getProfiles();
             mRecyclerView.setVisibility(profiles.isEmpty() ? View.GONE : View.VISIBLE);
             mEmptyView.setVisibility(profiles.isEmpty() ? View.VISIBLE : View.GONE);

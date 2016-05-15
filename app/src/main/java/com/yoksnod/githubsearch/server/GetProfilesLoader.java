@@ -30,11 +30,11 @@ public class GetProfilesLoader extends AbstractGetProfilesLoader<RequestResult<P
 
         final ProfilesAndTotalCount data = requestResult.getData();
 
-        if (RequestResult.isOk(requestResult) && !data.getProfiles().isEmpty()) {
+        if (requestResult.isOk() && !data.getProfiles().isEmpty()) {
             MergeProfilesCommand mergeCmd = new MergeProfilesCommand(getContext(), data.getProfiles());
             RequestResult<List<Profile>> mergeResult = scheduler.executeDbRequestBlocking(mergeCmd);
             final long totalCount = data.getTotalCount();
-            return RequestResult.isOk(mergeResult)
+            return mergeResult.isOk()
                     ? new RequestResult<ProfilesAndTotalCount>(new ProfilesAndTotalCount(mergeResult.getData(), totalCount))
                     : new RequestResult<ProfilesAndTotalCount>(mergeResult.getException());
 

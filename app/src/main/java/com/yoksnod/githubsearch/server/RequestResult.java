@@ -34,8 +34,8 @@ public class RequestResult<T> {
         return mData;
     }
 
-    public static <T> boolean isOk(RequestResult<T> result){
-        return result.mHolder == null;
+    public boolean isOk(){
+        return mHolder == null;
     }
 
     private static class BaseError<T> extends RequestResult<T> {
