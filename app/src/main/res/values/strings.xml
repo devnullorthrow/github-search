@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GithubSearch</string>
+    <string name="users_fragment_tag">users_fragment_tag</string>
+    <string name="empty_view_text">Profiles not found</string>
+    <string name="error_loading">Error loading, please retry later</string>
+    <string name="rate_limit_exceeded">Rate limit exceeded, try again later</string>
+</resources>
